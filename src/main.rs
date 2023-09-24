@@ -80,6 +80,7 @@ fn get_number_of_ads(notifier: &TelegramNotifier) -> NumberOfAds {
                         .unwrap();
                     panic!("failed to request lun: {:?}", err);
                 }
+                sleep(Duration::from_secs(10));
             }
         }
     }

@@ -1,6 +1,8 @@
 use crate::constants::MAX_NUMBER_OF_TRIES;
 use serde_json::json;
 use std::error::Error;
+use std::thread::sleep;
+use std::time::Duration;
 
 pub type Message = String;
 
@@ -45,6 +47,7 @@ impl TelegramNotifier {
                         tracing::error!("number of tries exceeded");
                         return Err(Box::new(err));
                     }
+                    sleep(Duration::from_secs(10));
                 }
             }
         }

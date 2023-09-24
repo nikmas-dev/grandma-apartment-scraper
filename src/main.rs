@@ -1,5 +1,7 @@
+mod constants;
 mod notifier;
 
+use crate::constants::MAX_NUMBER_OF_TRIES;
 use crate::notifier::TelegramNotifier;
 use scraper::{Html, Selector};
 use std::thread::sleep;
@@ -53,12 +55,31 @@ fn main() {
 
 fn get_number_of_ads() -> NumberOfAds {
     tracing::info!("requesting lun");
-    let response = reqwest::blocking::get(LINK)
-        .map_err(|err| {
+
+    let mut number_of_tries = MAX_NUMBER_OF_TRIES;
+
+    let response;
+    loop {
+        let result = reqwest::blocking::get(LINK).map_err(|err| {
             tracing::error!("failed to request lun: {:?}", err);
             err
-        })
-        .expect("failed to request lun");
+        });
+
+        match result {
+            Ok(resp) => {
+                response = resp;
+                break;
+            }
+            Err(err) => {
+                number_of_tries -= 1;
+                tracing::info!("number of tries to request lun left: {}", number_of_tries);
+                if number_of_tries == 0 {
+                    tracing::info!("number of tries to request lun exceeded");
+                    panic!("failed to request lun: {:?}", err);
+                }
+            }
+        }
+    }
 
     let html_content = response.text().unwrap();
 

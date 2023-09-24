@@ -1,9 +1,8 @@
+use crate::constants::MAX_NUMBER_OF_TRIES;
 use serde_json::json;
 use std::error::Error;
 
 pub type Message = String;
-
-const MAX_NUMBER_OF_TRIES: u8 = 10;
 
 pub struct TelegramNotifier {
     token: String,
@@ -43,6 +42,7 @@ impl TelegramNotifier {
                     number_of_tries -= 1;
                     tracing::info!("number of tries left: {}", number_of_tries);
                     if number_of_tries == 0 {
+                        tracing::error!("number of tries exceeded");
                         return Err(Box::new(err));
                     }
                 }

@@ -1,5 +1,0 @@
-{"timestamp":"2023-09-24T16:50:39.347949Z","level":"INFO","fields":{"message":"starting app"},"target":"apartment_scraper"}
-{"timestamp":"2023-09-24T16:50:39.348216Z","level":"INFO","fields":{"message":"sending message to Telegram about new ads"},"target":"apartment_scraper::notifier"}
-{"timestamp":"2023-09-24T16:50:39.715066Z","level":"INFO","fields":{"message":"message is successfully sent to Telegram"},"target":"apartment_scraper::notifier"}
-{"timestamp":"2023-09-24T16:50:39.717681Z","level":"INFO","fields":{"message":"requesting lun"},"target":"apartment_scraper"}
-{"timestamp":"2023-09-24T16:50:40.256121Z","level":"INFO","fields":{"message":"successfully retrieved 1 ads"},"target":"apartment_scraper"}

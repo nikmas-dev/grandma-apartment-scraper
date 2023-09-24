@@ -33,11 +33,11 @@ fn main() {
     tg_notifier.send_message("test message").unwrap();
 
     let two_hours = Duration::from_secs(2 * 60 * 60);
-    let mut number_of_ads = get_number_of_ads();
+    let mut number_of_ads = get_number_of_ads(&tg_notifier);
     sleep(two_hours);
 
     loop {
-        let new_number_of_ads = get_number_of_ads();
+        let new_number_of_ads = get_number_of_ads(&tg_notifier);
 
         if new_number_of_ads > number_of_ads {
             tracing::info!("new ads appeared");
@@ -53,7 +53,7 @@ fn main() {
     }
 }
 
-fn get_number_of_ads() -> NumberOfAds {
+fn get_number_of_ads(notifier: &TelegramNotifier) -> NumberOfAds {
     tracing::info!("requesting lun");
 
     let mut number_of_tries = MAX_NUMBER_OF_TRIES;
@@ -75,6 +75,9 @@ fn get_number_of_ads() -> NumberOfAds {
                 tracing::info!("number of tries to request lun left: {}", number_of_tries);
                 if number_of_tries == 0 {
                     tracing::info!("number of tries to request lun exceeded");
+                    notifier
+                        .send_message("number of tries to request lun exceeded")
+                        .unwrap();
                     panic!("failed to request lun: {:?}", err);
                 }
             }

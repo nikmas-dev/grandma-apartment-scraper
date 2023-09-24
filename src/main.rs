@@ -32,9 +32,9 @@ fn main() {
 
     tg_notifier.send_message("test message").unwrap();
 
-    let two_hours = Duration::from_secs(2 * 60 * 60);
+    let ten_min = Duration::from_secs(10 * 60);
     let mut number_of_ads = get_number_of_ads(&tg_notifier);
-    sleep(two_hours);
+    sleep(ten_min);
 
     loop {
         let new_number_of_ads = get_number_of_ads(&tg_notifier);
@@ -49,7 +49,7 @@ fn main() {
             number_of_ads = new_number_of_ads;
         }
 
-        sleep(two_hours);
+        sleep(ten_min);
     }
 }
 

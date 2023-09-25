@@ -9,7 +9,7 @@ use std::time::Duration;
 use tracing_appender::rolling;
 use tracing_subscriber::fmt::writer::MakeWriterExt;
 
-const LINK: &str = r#"https://market.lun.ua/uk/search?currency=UAH&floor_max=4&geo_id=1&is_without_fee=false&price_max=10000&price_sqm_currency=UAH&section_id=2&sort=relevance&sub_geo_id=31117&sub_geo_id=31904"#;
+const LINK: &str = r#"https://market.lun.ua/uk/search?currency=UAH&floor_max=5&geo_id=1&is_without_fee=false&price_max=10000&price_sqm_currency=UAH&section_id=2&sort=relevance&sub_geo_id=31117&sub_geo_id=31904"#;
 const SELECTOR: &str = r#".feed-layout__item-holder"#;
 
 type NumberOfAds = usize;
